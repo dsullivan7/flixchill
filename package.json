@@ -1,0 +1,28 @@
+{
+  "name": "flixchill",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dsullivan7/flixchill.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dsullivan7/flixchill/issues"
+  },
+  "homepage": "https://github.com/dsullivan7/flixchill",
+  "dependencies": {
+    "babel-preset-react": "^6.3.13",
+    "babelify": "^7.2.0",
+    "events": "^1.1.0",
+    "flux": "^2.1.1",
+    "object-assign": "^4.0.1",
+    "react": "^0.14.5",
+    "react-dom": "^0.14.5"
+  }
+}
