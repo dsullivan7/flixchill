@@ -19268,10 +19268,10 @@ module.exports = require('./lib/React');
 var MyDispatcher = require('../dispatcher/MyDispatcher.js');
 
 var MyAction = {
-    showMessage: function (message) {
+    swipe: function (option) {
         MyDispatcher.handleViewAction({
-            actionType: 'SHOW_MESSAGE',
-            message: message
+            actionType: 'SWIPE',
+            option: option
         });
     }
 };
@@ -19293,7 +19293,7 @@ var MyDispatcher = assign(new Dispatcher(), {
 });
 
 MyDispatcher.register(function (payload) {
-    MyStore.setPhotoLink("img2.jpg");
+    MyStore.setNextPersonProfile();
     MyStore.emitChange();
 });
 
@@ -19312,7 +19312,7 @@ var PhotoView = React.createClass({
     displayName: "PhotoView",
 
     getInitialState: function () {
-        return { photoLink: MyStore.getPhotoLink() };
+        return { personProfile: MyStore.getPersonProfile() };
     },
 
     componentDidMount: function () {
@@ -19324,11 +19324,11 @@ var PhotoView = React.createClass({
     },
 
     render: function () {
-        return React.createElement("img", { className: "flix_display_image", src: "img/" + this.state.photoLink });
+        return React.createElement("img", { className: "flix_display_image", src: "img/" + this.state.personProfile.photoLink });
     },
 
     onStoreChange: function () {
-        this.setState({ photoLink: MyStore.getPhotoLink() });
+        this.setState({ personProfile: MyStore.getPersonProfile() });
     }
 });
 
@@ -19347,7 +19347,7 @@ var Arrow = React.createClass({
     },
 
     handleClick: function () {
-        MyAction.showMessage('Hello World!!');
+        MyAction.swipe();
     }
 });
 
@@ -19377,7 +19377,10 @@ ReactDOM.render(React.createElement(AppContainer, null), document.getElementById
 var EventEmitter = require('events').EventEmitter;
 var assign = require('object-assign');
 
-var photoLink = "img1.jpg";
+var personProfiles = [{ photoLink: "img1.jpg", name: "Rachael" }, { photoLink: "img2.jpg", name: "Natalie" }, { photoLink: "img3.jpg", name: "Penelope" }];
+
+var index = 0;
+var personProfile = personProfiles[index];
 
 var MyStore = assign({}, EventEmitter.prototype, {
 
@@ -19385,12 +19388,29 @@ var MyStore = assign({}, EventEmitter.prototype, {
         this.emit('change');
     },
 
-    getPhotoLink: function () {
-        return photoLink;
+    getPersonProfile: function () {
+        return personProfile;
     },
 
-    setPhotoLink: function (newPhotoLink) {
-        photoLink = newPhotoLink;
+    setPersonProfile: function (newPersonProfile) {
+        personProfile = newPersonProfile;
+    },
+
+    setNextPersonProfile: function () {
+
+        // generate a list of indexes excluding the current index
+        var indexes = [];
+        for (var i = 0; i < personProfiles.length; i++) {
+            if (i != index) {
+                indexes.push(i);
+            }
+        }
+
+        // choose a random index from our list of other indexes
+        index = indexes[Math.floor(Math.random() * indexes.length)];
+
+        // set the personProfile
+        personProfile = personProfiles[index];
     },
 
     addChangeListener: function (callback) {

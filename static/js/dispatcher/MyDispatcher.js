@@ -5,14 +5,14 @@ var MyStore = require('../stores/MyStore.js')
 var MyDispatcher = assign(new Dispatcher(), {
     handleViewAction: function(action){
         this.dispatch({
-            source:'VIEW_ACTION',
-            action:action
+            source: 'VIEW_ACTION',
+            action: action
         })
     }
 });
 
 MyDispatcher.register(function(payload){
-    MyStore.setPhotoLink("img2.jpg")
+    MyStore.setNextPersonProfile()
     MyStore.emitChange()
 })
 

@@ -1,10 +1,10 @@
 var MyDispatcher = require('../dispatcher/MyDispatcher.js')
 
 var MyAction = {
-    showMessage:function(message){
+    swipe:function(option){
         MyDispatcher.handleViewAction({
-            actionType:'SHOW_MESSAGE',
-            message:message
+            actionType: 'SWIPE',
+            option: option
         });
     }
 };

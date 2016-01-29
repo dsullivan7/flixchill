@@ -8,7 +8,7 @@ Renders the photo for this person
 */
 var PhotoView = React.createClass({
     getInitialState: function() {
-        return {photoLink: MyStore.getPhotoLink()}
+        return {personProfile: MyStore.getPersonProfile()}
     },
 
     componentDidMount: function() {
@@ -20,11 +20,11 @@ var PhotoView = React.createClass({
     },
 
     render: function() {
-        return (<img className="flix_display_image" src={"img/" + this.state.photoLink} />)
+        return (<img className="flix_display_image" src={"img/" + this.state.personProfile.photoLink} />)
     },
 
     onStoreChange: function() {
-        this.setState({photoLink: MyStore.getPhotoLink()})
+        this.setState({personProfile: MyStore.getPersonProfile()})
     }
 })
 
@@ -41,7 +41,7 @@ var Arrow = React.createClass({
     },
 
     handleClick: function() {
-        MyAction.showMessage('Hello World!!')
+        MyAction.swipe()
     }
 })
 
