@@ -1,13 +1,30 @@
 var React = require("react")
 var ReactDOM = require("react-dom")
 var MyAction = require("./actions/MyAction.js")
+var MyStore = require("./stores/MyStore.js")
 
 /*
 Renders the photo for this person
 */
 var PhotoView = React.createClass({
+    getInitialState: function() {
+        return {photoLink: MyStore.getPhotoLink()}
+    },
+
+    componentDidMount: function() {
+        MyStore.addChangeListener(this.onStoreChange)
+    },
+
+    componentWillUnmount: function() {
+        MyStore.removeChangeListener(this.onStoreChange);
+    },
+
     render: function() {
-        return (<img className="flix_display_image" src={"img/img2.jpg"} />)
+        return (<img className="flix_display_image" src={"img/" + this.state.photoLink} />)
+    },
+
+    onStoreChange: function() {
+        this.setState({photoLink: MyStore.getPhotoLink()})
     }
 })
 

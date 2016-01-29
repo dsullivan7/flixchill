@@ -12,7 +12,8 @@ var MyDispatcher = assign(new Dispatcher(), {
 });
 
 MyDispatcher.register(function(payload){
-    console.log("blah")
+    MyStore.setPhotoLink("img2.jpg")
+    MyStore.emitChange()
 })
 
 module.exports = MyDispatcher
