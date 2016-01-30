@@ -10,7 +10,7 @@ var personProfiles = [
 var index = 0
 var personProfile = personProfiles[index]
 
-var MyStore = assign({}, EventEmitter.prototype,{
+var PersonProfileStore = assign({}, EventEmitter.prototype,{
 
     emitChange : function(){
         this.emit('change')
@@ -46,4 +46,4 @@ var MyStore = assign({}, EventEmitter.prototype,{
     },
 })
 
-module.exports = MyStore
+module.exports = PersonProfileStore
