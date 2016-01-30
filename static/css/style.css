@@ -2,11 +2,13 @@
     margin-right: auto;
     margin-left: auto;
     width: 450px;
+    height: 400px;
     position: relative;
 }
 
 .flix_display_image{
-    max-width: 80%;
+    /*max-width: 80%;*/
+    width: 300px;
     border-radius: 25px;
     display: block;
     margin-left: auto;
