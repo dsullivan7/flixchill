@@ -1,22 +1,22 @@
 var React = require("react")
 var ReactDOM = require("react-dom")
 var MyAction = require("./actions/MyAction.js")
-var MyStore = require("./stores/MyStore.js")
+var PersonProfileStore = require("./stores/PersonProfileStore.js")
 
 /*
 Renders the photo for this person
 */
 var PhotoView = React.createClass({
     getInitialState: function() {
-        return {personProfile: MyStore.getPersonProfile()}
+        return {personProfile: PersonProfileStore.getPersonProfile()}
     },
 
     componentDidMount: function() {
-        MyStore.addChangeListener(this.onStoreChange)
+        PersonProfileStore.addChangeListener(this.onStoreChange)
     },
 
     componentWillUnmount: function() {
-        MyStore.removeChangeListener(this.onStoreChange);
+        PersonProfileStore.removeChangeListener(this.onStoreChange);
     },
 
     render: function() {
@@ -24,7 +24,7 @@ var PhotoView = React.createClass({
     },
 
     onStoreChange: function() {
-        this.setState({personProfile: MyStore.getPersonProfile()})
+        this.setState({personProfile: PersonProfileStore.getPersonProfile()})
     }
 })
 

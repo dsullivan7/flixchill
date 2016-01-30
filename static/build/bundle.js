@@ -19281,7 +19281,7 @@ module.exports = MyAction;
 },{"../dispatcher/MyDispatcher.js":163}],163:[function(require,module,exports){
 var Dispatcher = require("flux").Dispatcher;
 var assign = require('object-assign');
-var MyStore = require('../stores/MyStore.js');
+var PersonProfileStore = require('../stores/PersonProfileStore.js');
 
 var MyDispatcher = assign(new Dispatcher(), {
     handleViewAction: function (action) {
@@ -19293,17 +19293,17 @@ var MyDispatcher = assign(new Dispatcher(), {
 });
 
 MyDispatcher.register(function (payload) {
-    MyStore.setNextPersonProfile();
-    MyStore.emitChange();
+    PersonProfileStore.setNextPersonProfile();
+    PersonProfileStore.emitChange();
 });
 
 module.exports = MyDispatcher;
 
-},{"../stores/MyStore.js":165,"flux":1,"object-assign":4}],164:[function(require,module,exports){
+},{"../stores/PersonProfileStore.js":165,"flux":1,"object-assign":4}],164:[function(require,module,exports){
 var React = require("react");
 var ReactDOM = require("react-dom");
 var MyAction = require("./actions/MyAction.js");
-var MyStore = require("./stores/MyStore.js");
+var PersonProfileStore = require("./stores/PersonProfileStore.js");
 
 /*
 Renders the photo for this person
@@ -19312,15 +19312,15 @@ var PhotoView = React.createClass({
     displayName: "PhotoView",
 
     getInitialState: function () {
-        return { personProfile: MyStore.getPersonProfile() };
+        return { personProfile: PersonProfileStore.getPersonProfile() };
     },
 
     componentDidMount: function () {
-        MyStore.addChangeListener(this.onStoreChange);
+        PersonProfileStore.addChangeListener(this.onStoreChange);
     },
 
     componentWillUnmount: function () {
-        MyStore.removeChangeListener(this.onStoreChange);
+        PersonProfileStore.removeChangeListener(this.onStoreChange);
     },
 
     render: function () {
@@ -19328,7 +19328,7 @@ var PhotoView = React.createClass({
     },
 
     onStoreChange: function () {
-        this.setState({ personProfile: MyStore.getPersonProfile() });
+        this.setState({ personProfile: PersonProfileStore.getPersonProfile() });
     }
 });
 
@@ -19373,7 +19373,7 @@ Main entry point into the app
 */
 ReactDOM.render(React.createElement(AppContainer, null), document.getElementById('container'));
 
-},{"./actions/MyAction.js":162,"./stores/MyStore.js":165,"react":161,"react-dom":5}],165:[function(require,module,exports){
+},{"./actions/MyAction.js":162,"./stores/PersonProfileStore.js":165,"react":161,"react-dom":5}],165:[function(require,module,exports){
 var EventEmitter = require('events').EventEmitter;
 var assign = require('object-assign');
 
@@ -19382,7 +19382,7 @@ var personProfiles = [{ photoLink: "img1.jpg", name: "Rachael" }, { photoLink: "
 var index = 0;
 var personProfile = personProfiles[index];
 
-var MyStore = assign({}, EventEmitter.prototype, {
+var PersonProfileStore = assign({}, EventEmitter.prototype, {
 
     emitChange: function () {
         this.emit('change');
@@ -19418,7 +19418,7 @@ var MyStore = assign({}, EventEmitter.prototype, {
     }
 });
 
-module.exports = MyStore;
+module.exports = PersonProfileStore;
 
 },{"events":166,"object-assign":4}],166:[function(require,module,exports){
 // Copyright Joyent, Inc. and other Node contributors.
