@@ -1,4 +1,5 @@
 var EventEmitter = require('events').EventEmitter
+var MyDispatcher = require('../dispatcher/MyDispatcher')
 var assign = require('object-assign')
 
 var personProfiles = [
@@ -44,6 +45,11 @@ var PersonProfileStore = assign({}, EventEmitter.prototype,{
     addChangeListener : function(callback) {
         this.on("change", callback)
     },
+})
+
+MyDispatcher.register(function(payload){
+    PersonProfileStore.setNextPersonProfile()
+    PersonProfileStore.emitChange()
 })
 
 module.exports = PersonProfileStore
