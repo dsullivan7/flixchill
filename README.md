@@ -6,4 +6,4 @@ browserify -t [ babelify --presets [ react ] ] ./static/js/main.js -o ./static/b
 python server.py
 ```
 
-In your web browser, navigate to http://localhost:3000
+In your web browser, navigate to <http://localhost:3000>
