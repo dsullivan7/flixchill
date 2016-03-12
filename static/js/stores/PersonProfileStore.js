@@ -1,55 +1,53 @@
-var EventEmitter = require('events').EventEmitter
-var MyDispatcher = require('../dispatcher/MyDispatcher')
-var assign = require('object-assign')
+var EventEmitter = require('events').EventEmitter;
+var assign = require('object-assign');
+var MovieStore = require('./MovieStore');
 
 var personProfiles = [
-    {photoLink:"img1.jpg", name: "Rachael"},
-    {photoLink:"img2.jpg", name: "Natalie"},
-    {photoLink:"img3.jpg", name: "Penelope"}
-    ]
+    {photoLink:"img1.jpg", name: "Rachael", movies: [1, 2, 3]},
+    {photoLink:"img2.jpg", name: "Natalie", movies: [1, 2, 3]},
+    {photoLink:"img3.jpg", name: "Penelope", movies: [1, 2, 3]}
+    ];
 
-var index = 0
-var personProfile = personProfiles[index]
+var personIndex = 0;
+var movieIndex = 0;
+var personProfile = personProfiles[personIndex];
+var movie = MovieStore.getMovie(personProfile.movies[movieIndex]);
 
-var PersonProfileStore = assign({}, EventEmitter.prototype,{
+var PersonProfileStore = assign({}, EventEmitter.prototype, {
 
     emitChange : function(){
-        this.emit('change')
+        this.emit('change');
     },
 
     getPersonProfile : function(){
-        return personProfile
+        return personProfile;
     },
 
-    setPersonProfile : function(newPersonProfile){
-        personProfile = newPersonProfile
+    getMovie : function(){
+        return movie;
     },
 
     setNextPersonProfile : function(){
-
-        // generate a list of indexes excluding the current index
-        var indexes = []
-        for (var i = 0; i < personProfiles.length; i++){
-            if (i != index){
-                indexes.push(i)
-            }
-        }
-
-        // choose a random index from our list of other indexes
-        index = indexes[Math.floor(Math.random() * indexes.length)]
-
         // set the personProfile
-        personProfile = personProfiles[index]
+        movieIndex = 0;
+        personIndex++;
+        personProfile = personProfiles[personIndex % personProfiles.length];
+    },
+
+    setNextMovie : function(){
+        // set the movie
+        movieIndex++;
+        movie = MovieStore.getMovie(personProfile.movies[movieIndex %
+                                    personProfile.movies.length]);
     },
 
     addChangeListener : function(callback) {
         this.on("change", callback)
     },
-})
 
-MyDispatcher.register(function(payload){
-    PersonProfileStore.setNextPersonProfile()
-    PersonProfileStore.emitChange()
-})
+    removeChangeListener : function(callback) {
+        this.removeListener("change", callback)
+    },
+});
 
-module.exports = PersonProfileStore
+module.exports = PersonProfileStore;

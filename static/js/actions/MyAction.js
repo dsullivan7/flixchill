@@ -1,15 +1,16 @@
-var MyDispatcher = require('../dispatcher/MyDispatcher.js')
+var MyDispatcher = require('../dispatcher/MyDispatcher');
 
 var MyAction = {
     /*
-    a swipe right or left
+    a swipe to like or dislike
     */
-    swipe:function(option){
+    swipe: function(view, option){
         MyDispatcher.handleViewAction({
-            actionType: 'SWIPE',
+            actionType: 'swipe',
+            view: view,
             option: option
         });
     }
 };
 
-module.exports = MyAction
+module.exports = MyAction;
