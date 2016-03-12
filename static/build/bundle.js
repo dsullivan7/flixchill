@@ -19345,7 +19345,6 @@ var Arrow = React.createClass({
     },
 
     handleClick: function (view, option) {
-        console.log(view + " " + option);
         MyAction.swipe(view, option);
     }
 });
