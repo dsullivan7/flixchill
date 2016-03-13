@@ -24,6 +24,9 @@ MyDispatcher.register(function(payload){
             PersonProfileStore.setNextMovie();
             PersonProfileStore.emitChange();
         }
+    }else if (payload.actionType === "unmatch"){
+        MatchStore.setMatchStatus(false);
+        MatchStore.emitChange();
     }
 });
 

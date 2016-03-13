@@ -10,7 +10,16 @@ var MyAction = {
             view: view,
             option: option
         });
-    }
+    },
+
+    /*
+    unmatch this person
+    */
+    unmatch: function(){
+        MyDispatcher.handleViewAction({
+            actionType: 'unmatch'
+        });
+    },
 };
 
 module.exports = MyAction;

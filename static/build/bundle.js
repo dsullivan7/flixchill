@@ -19289,6 +19289,15 @@ var MyAction = {
             view: view,
             option: option
         });
+    },
+
+    /*
+    unmatch this person
+    */
+    unmatch: function () {
+        MyDispatcher.handleViewAction({
+            actionType: 'unmatch'
+        });
     }
 };
 
@@ -19323,8 +19332,12 @@ var PhotoView = React.createClass({
     },
 
     render: function () {
-        return React.createElement("img", { className: "flix_display_image",
-            src: "img/profilePictures/" + this.state.personProfile.photoLink });
+        return React.createElement(
+            "div",
+            { className: "flix_display_image_container" },
+            React.createElement("img", { className: "flix_display_image",
+                src: "img/profilePictures/" + this.state.personProfile.photoLink })
+        );
     }
 });
 
@@ -19346,6 +19359,25 @@ var Arrow = React.createClass({
 
     handleClick: function (view, option) {
         MyAction.swipe(view, option);
+    }
+});
+
+/*
+A button to unmatch the current match
+*/
+var Unmatch = React.createClass({
+    displayName: "Unmatch",
+
+    render: function () {
+        return React.createElement(
+            "button",
+            { onClick: this.unmatch, className: "flix_unmatch" },
+            "Unmatch"
+        );
+    },
+
+    unmatch: function () {
+        MyAction.unmatch();
     }
 });
 
@@ -19372,8 +19404,12 @@ var MovieView = React.createClass({
     },
 
     render: function () {
-        return React.createElement("img", { className: "flix_display_image",
-            src: "img/movies/" + this.state.movie.photoLink });
+        return React.createElement(
+            "div",
+            { className: "flix_display_image_container" },
+            React.createElement("img", { className: "flix_display_image",
+                src: "img/movies/" + this.state.movie.photoLink })
+        );
     }
 
 });
@@ -19406,23 +19442,24 @@ var AppContainer = React.createClass({
         if (this.state.match) {
             app_content = React.createElement(
                 "div",
-                null,
-                React.createElement(Arrow, { option: "dislike", view: "movie" }),
+                { id: "flix_app_content" },
                 React.createElement(MovieView, null),
+                React.createElement(Arrow, { option: "dislike", view: "movie" }),
+                React.createElement(Unmatch, null),
                 React.createElement(Arrow, { option: "like", view: "movie" })
             );
         } else {
             app_content = React.createElement(
                 "div",
-                null,
-                React.createElement(Arrow, { option: "dislike", view: "person" }),
+                { id: "flix_app_content" },
                 React.createElement(PhotoView, null),
+                React.createElement(Arrow, { option: "dislike", view: "person" }),
                 React.createElement(Arrow, { option: "like", view: "person" })
             );
         }
         return React.createElement(
             "div",
-            { id: "flix_app_content" },
+            null,
             app_content
         );
     }
@@ -19457,6 +19494,9 @@ MyDispatcher.register(function (payload) {
             PersonProfileStore.setNextMovie();
             PersonProfileStore.emitChange();
         }
+    } else if (payload.actionType === "unmatch") {
+        MatchStore.setMatchStatus(false);
+        MatchStore.emitChange();
     }
 });
 

@@ -2,24 +2,44 @@
     margin-right: auto;
     margin-left: auto;
     width: 450px;
-    height: 400px;
+    height: 450px;
     position: relative;
 }
 
-.flix_display_image{
-    /*max-width: 80%;*/
-    width: 300px;
+.flix_display_image_container{
     border-radius: 25px;
-    display: block;
+    position: absolute;
+    width: 300px;
     margin-left: auto;
     margin-right: auto;
     margin-top: 10px;
+    margin-bottom: 10px;
+    left: 0;
+    right: 0;
+}
+
+.flix_display_image{
+    border-radius: 25px;
+    width: 300px;
+}
+
+.flix_unmatch {
+    font-size: 20px;
+    position: absolute;
+    top: 0px;
+    background-color: #333;
+    color: white;
+    padding: 10px;
+    border-radius: 50px;
+    right: 40px;
+    opacity: 0.9;
 }
 
 .flix_arrow {
+    top: auto;
+    bottom: 0px;
     font-size: 50px;
     position: absolute;
-    top: 90%;
     background-color: white;
     padding: 20px;
     border-radius: 50px;

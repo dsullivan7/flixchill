@@ -24,9 +24,11 @@ var PhotoView = React.createClass({
     },
 
     render: function() {
-        return (<img className="flix_display_image"
+        return (<div className="flix_display_image_container">
+                <img className="flix_display_image"
                      src={"img/profilePictures/" +
-                           this.state.personProfile.photoLink} />);
+                           this.state.personProfile.photoLink} />
+                </div>);
     },
 })
 
@@ -58,6 +60,21 @@ var Arrow = React.createClass({
 })
 
 /*
+A button to unmatch the current match
+*/
+var Unmatch = React.createClass({
+    render: function() {
+        return (<button onClick={this.unmatch} className="flix_unmatch">
+                Unmatch
+                </button>);
+    },
+
+    unmatch: function() {
+        MyAction.unmatch();
+    },
+})
+
+/*
 A display of movies to choose from
 */
 var MovieView = React.createClass({
@@ -78,8 +95,10 @@ var MovieView = React.createClass({
     },
 
     render: function() {
-        return (<img className="flix_display_image"
-                     src={"img/movies/" + this.state.movie.photoLink} />);
+        return (<div className="flix_display_image_container">
+                    <img className="flix_display_image"
+                         src={"img/movies/" + this.state.movie.photoLink} />
+                </div>);
     },
 
 })
@@ -109,25 +128,26 @@ var AppContainer = React.createClass({
 
         if (this.state.match){
             app_content = (
-                <div>
-                    <Arrow option="dislike" view="movie"/>
+                <div id="flix_app_content">
                     <MovieView />
+                    <Arrow option="dislike" view="movie"/>
+                    <Unmatch />
                     <Arrow option="like" view="movie"/>
                 </div>
                 );
         }else{
             app_content = (
-                <div>
-                    <Arrow option="dislike" view="person"/>
+                <div id="flix_app_content">
                     <PhotoView />
+                    <Arrow option="dislike" view="person"/>
                     <Arrow option="like" view="person"/>
                 </div>
                     );
         }
         return (
-            <div id="flix_app_content">
+                <div>
                 {app_content}
-            </div>
+                </div>
             );
     },
 });
